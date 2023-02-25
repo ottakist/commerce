@@ -20,12 +20,11 @@ import {
 } from './pages';
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  
   return (
     <BrowserRouter>
-    <Navbar/>
-    <Sidebar/>
+      <Navbar />
+      <Sidebar />
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -35,7 +34,7 @@ function App() {
         <Route path='/checkout' element={<Checkout />} />
         <Route path='*' element={<Error />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </BrowserRouter>
   );
 }

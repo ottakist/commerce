@@ -12,6 +12,7 @@ const FeaturedProducts = () => {
   const { featuredProducts, isLoading, products_error } = useSelector(
     (state) => state.products
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
@@ -20,12 +21,12 @@ const FeaturedProducts = () => {
 
   {
     if (isLoading) {
-      <Loading />;
+     return  <Loading />;
     }
   }
   {
     if (products_error) {
-      <Error />;
+      return <Error />;
     }
   }
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProducts } from '../features/products/productsSlice';
+import {useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Error from './Error';
@@ -12,13 +12,6 @@ const FeaturedProducts = () => {
   const { featuredProducts, isLoading, products_error } = useSelector(
     (state) => state.products
   );
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getProducts());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   {
     if (isLoading) {
      return  <Loading />;

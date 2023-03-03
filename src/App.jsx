@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProducts } from './features/products/productsSlice';
 import reactLogo from './assets/react.svg';
 import {
   BrowserRouter as Router,
@@ -20,7 +22,11 @@ import {
 } from './pages';
 
 function App() {
-  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <BrowserRouter>
       <Navbar />

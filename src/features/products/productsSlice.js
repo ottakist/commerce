@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { products_url } from '../../utils/constants';
-import axios from 'axios';
 const initialState = {
   isSidebarOpen: false,
   featuredProducts: [],

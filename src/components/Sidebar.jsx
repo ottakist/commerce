@@ -10,7 +10,6 @@ import { sidebarToggle } from '../features/products/productsSlice';
 
 const Sidebar = () => {
   const { isSidebarOpen } = useSelector((state) => state.products);
-
   const dispatch = useDispatch();
   return (
     <SidebarContainer>

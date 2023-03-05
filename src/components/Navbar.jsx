@@ -1,37 +1,48 @@
-import React from 'react'
-import styled from 'styled-components'
-import logo from '../assets/logo.svg'
-import { FaBars } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { links } from '../utils/constants'
-import CartButtons from './CartButtons'
-
-
+import React from 'react';
+import styled from 'styled-components';
+import logo from '../assets/logo.svg';
+import { FaBars } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { links } from '../utils/constants';
+import CartButtons from './CartButtons';
+import { sidebarToggle } from '../features/products/productsSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 const Nav = () => {
-  return <NavContainer>
-    <div className="nav-center">
-      <div className="nav-header">
-        <Link to={'/'}>
-          <img src={logo} alt="ComfySloth" />
-        </Link>
-        <button type='button' className="nav-toggle">
-          <FaBars/>
-        </button>
+  const dispatch = useDispatch();
+  const { isSidebarOpen } = useSelector((state) => state.products);
+  return (
+    <NavContainer>
+      <div className='nav-center'>
+        <div className='nav-header'>
+          <Link to={'/'}>
+            <img src={logo} alt='ComfySloth' />
+          </Link>
+          <button
+            type='button'
+            className='nav-toggle'
+            onClick={() => {
+              dispatch(sidebarToggle(isSidebarOpen));
+            }}
+          >
+            <FaBars />
+          </button>
+        </div>
+        <ul className='nav-links'>
+          {links.map((link) => {
+            const { id, text, url } = link;
+            return (
+              <li key={id}>
+                <Link to={url}>{text}</Link>
+              </li>
+            );
+          })}
+        </ul>
+        <CartButtons />
       </div>
-      <ul className="nav-links">
-{links.map((link)=>{
-  const {id,text,url} = link
-  return(
-    <li key={id}>
-      <Link to={url}>{text}</Link>
-    </li>
-  )
-})}
-      </ul>
-      <CartButtons/>
-    </div>
-  </NavContainer>
-}
+    </NavContainer>
+  );
+};
 
 const NavContainer = styled.nav`
   height: 5rem;
@@ -98,6 +109,6 @@ const NavContainer = styled.nav`
       display: grid;
     }
   }
-`
+`;
 
-export default Nav
+export default Nav;

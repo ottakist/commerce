@@ -8,8 +8,11 @@ const ProductsPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
       dispatch(loadProducts(products));
+      console.log("loaded");
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [products]);
+
+
   return <main>
     <PageHero title={"products"}/>
     <Wrapper className='page'>

@@ -19,6 +19,7 @@ export const getProducts = createAsyncThunk(
         return rejectWithValue(response.status);
       }
       const data = await response.json();
+      console.log("getProduct");
 
       return data;
     } catch (err) {
@@ -34,6 +35,7 @@ export const getSingleProduct = createAsyncThunk(
       if (!response.ok) {
         return rejectWithValue(response.status);
       }
+       console.log('getSingle');
       const data = await response.json();
 
       return data;

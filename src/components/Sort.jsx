@@ -1,15 +1,19 @@
-import React,{useEffect} from 'react';
-import { setView,updateSort } from '../features/products/filtersSlice';
+import React, { useEffect } from 'react';
+import { setView, updateSort,filterProducts } from '../features/products/filtersSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { BsFillGridFill, BsList } from 'react-icons/bs';
 
 import styled from 'styled-components';
 const Sort = () => {
   const dispatch = useDispatch();
-  const { grid_view, list_view,filtered_products,sort } = useSelector((state) => state.filters);
-  useEffect(()=>{dispatch(updateSort(sort))},[filtered_products,sort])
+  const { grid_view, list_view, filtered_products, sort,filters } = useSelector(
+    (state) => state.filters
+  );
+  useEffect(() => {
+    dispatch((filterProducts()))
+    dispatch(updateSort(sort));
+  }, [filtered_products, sort,filters]);
   return (
-    
     <Wrapper>
       <div className='btn-container'>
         <button
@@ -29,7 +33,13 @@ const Sort = () => {
       <hr />
       <form>
         <label htmlFor='sort'>sort by</label>
-        <select name='sort' id='sort' className='sort-input' value={sort}  onChange={(e)=>dispatch(updateSort(e.target.value))}>
+        <select
+          name='sort'
+          id='sort'
+          className='sort-input'
+          value={sort}
+          onChange={(e) => dispatch(updateSort(e.target.value))}
+        >
           <option value='price-lowest'>price (lowest)</option>
           <option value='price-highest'>price (highest)</option>
           <option value='name-a'>name (a-z)</option>

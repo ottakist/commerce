@@ -63,12 +63,15 @@ const filterSlice = createSlice({
       state.sort = payload;
     },
     updateFilters:(state,{payload})=>{
-
+      state.filters[payload[0]] = payload[1]
+    },
+    filterProducts:()=>{
+      console.log("filterd");
     },
     clearFilters:(state,{payload})=>{
 
     },
   },
 });
-export const { loadProducts, setView, updateSort,updateFilters,clearFilters } = filterSlice.actions;
+export const { loadProducts, setView, updateSort,updateFilters,clearFilters,filterProducts } = filterSlice.actions;
 export default filterSlice.reducer;

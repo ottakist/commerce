@@ -62,16 +62,69 @@ const filterSlice = createSlice({
       }
       state.sort = payload;
     },
-    updateFilters:(state,{payload})=>{
-      state.filters[payload[0]] = payload[1]
+    updateFilters: (state, { payload }) => {
+      state.filters[payload.name] = payload.value;
     },
-    filterProducts:()=>{
-      console.log("filterd");
-    },
-    clearFilters:(state,{payload})=>{
+    filterProducts: (state) => {
+      const { all_products } = state;
+      let tempProducts = [...all_products];
+      const { text, category, company, color, price, shipping,max_price } = state.filters;
 
+      if (text) {
+        tempProducts = tempProducts.filter((product) =>
+          product.name.toLowerCase().startsWith(text)
+        );
+      }
+      if (category !== 'all') {
+        tempProducts = tempProducts.filter(
+          (product) => product.category === category
+        );
+      }
+      if (company !== 'all') {
+        tempProducts = tempProducts.filter(
+          (product) => product.company === company
+        );
+      }
+      if (color !== 'all') {
+        tempProducts = tempProducts.filter((product) => {
+          return product.colors.find((c) => c === color);
+        });
+      }
+      if (shipping) {
+        tempProducts = tempProducts.filter(
+          (product) => product.shipping === true
+        );
+      }
+      if (max_price !== 0) {
+        tempProducts = tempProducts.filter((product) => product.price <= price);
+      }
+      state.filtered_products = tempProducts;
+    },
+    clearFilters: (state) => {
+      return {
+        ...state,
+        filtered_products: state.all_products,
+        filters: {
+          ...state.filters,
+          text: '',
+          company: 'all',
+          category: 'all',
+          color: 'all',
+          min_price: 0,
+          max_price:0,
+          price: 0,
+          shipping: false,
+        },
+      };
     },
   },
 });
-export const { loadProducts, setView, updateSort,updateFilters,clearFilters,filterProducts } = filterSlice.actions;
+export const {
+  loadProducts,
+  setView,
+  updateSort,
+  updateFilters,
+  clearFilters,
+  filterProducts,
+} = filterSlice.actions;
 export default filterSlice.reducer;

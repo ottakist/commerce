@@ -12,7 +12,7 @@ const Sort = () => {
   useEffect(() => {
     dispatch((filterProducts()))
     dispatch(updateSort(sort));
-  }, [filtered_products, sort,filters]);
+  }, [sort,filters]);
   return (
     <Wrapper>
       <div className='btn-container'>

@@ -19,8 +19,6 @@ export const getProducts = createAsyncThunk(
         return rejectWithValue(response.status);
       }
       const data = await response.json();
-      console.log("getProduct");
-
       return data;
     } catch (err) {
       throw rejectWithValue(err.message);
@@ -35,7 +33,7 @@ export const getSingleProduct = createAsyncThunk(
       if (!response.ok) {
         return rejectWithValue(response.status);
       }
-       console.log('getSingle');
+      console.log('getSingle');
       const data = await response.json();
 
       return data;
@@ -75,7 +73,6 @@ const productsSlice = createSlice({
       .addCase(getSingleProduct.fulfilled, (state, action) => {
         state.single_isLoading = false;
         state.single_product = action.payload;
-
       })
       .addCase(getSingleProduct.rejected, (state) => {
         state.single_isLoading = false;

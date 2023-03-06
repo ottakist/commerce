@@ -1,31 +1,32 @@
-import React,{useEffect} from 'react'
-import styled from 'styled-components'
-import { loadProducts } from '../features/products/filtersSlice'
-import { Filters, ProductList, Sort, PageHero } from '../components'
-import { useSelector,useDispatch } from 'react-redux'
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { loadProducts } from '../features/products/filtersSlice';
+import { Filters, ProductList, Sort, PageHero } from '../components';
+import { useSelector, useDispatch } from 'react-redux';
 const ProductsPage = () => {
   const { products } = useSelector((state) => state.products);
-    const dispatch = useDispatch();
-    useEffect(() => {
-      dispatch(loadProducts(products));
-      console.log("loaded");
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [products]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadProducts(products));
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [products]);
 
-  return <main>
-    <PageHero title={"products"}/>
-    <Wrapper className='page'>
-      <div className="section-center products">
-        <Filters/>
-        <div>
-          <Sort/>
-          <ProductList/>
+  return (
+    <main>
+      <PageHero title={'products'} />
+      <Wrapper className='page'>
+        <div className='section-center products'>
+          <Filters />
+          <div>
+            <Sort />
+            <ProductList />
+          </div>
         </div>
-      </div>
-    </Wrapper>
-  </main>
-}
+      </Wrapper>
+    </main>
+  );
+};
 
 const Wrapper = styled.div`
   .products {
@@ -38,6 +39,6 @@ const Wrapper = styled.div`
       grid-template-columns: 200px 1fr;
     }
   }
-`
+`;
 
-export default ProductsPage
+export default ProductsPage;

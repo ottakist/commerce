@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { updateFilters, clearFilters } from '../features/products/filtersSlice';
 const Filters = () => {
   const {
+    all_products,
     filters: {
       text,
       category,
@@ -21,6 +22,9 @@ const Filters = () => {
   } = useSelector((state) => state.filters);
 
   const dispatch = useDispatch();
+  const categories = getUniqueValues(all_products, 'category');
+  const companies = getUniqueValues(all_products, 'company');
+  const colors = getUniqueValues(all_products, 'colors');
 
   return (
     <Wrapper>
@@ -38,12 +42,143 @@ const Filters = () => {
               placeholder='search'
               value={text}
               onChange={(e) =>
-                dispatch(updateFilters([e.target.name,e.target.value]))
+                dispatch(
+                  updateFilters({ name: e.target.name, value: e.target.value })
+                )
+              }
+            />
+          </div>
+          <div className='form-control'>
+            <h5>category</h5>
+            <div>
+              {categories.map((c, index) => {
+                return (
+                  <button
+                    key={index}
+                    className={`${
+                      c === category.toLowerCase() ? 'active' : null
+                    }`}
+                    type='button'
+                    name='category'
+                    onClick={(e) => {
+                      dispatch(
+                        updateFilters({ name: e.target.name, value: c })
+                      );
+                    }}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div className='form-control'>
+            <h5>company</h5>
+            <select
+              name='company'
+              id='company'
+              className='company'
+              value={company}
+              onChange={(e) =>
+                dispatch(
+                  updateFilters({ name: e.target.name, value: e.target.value })
+                )
+              }
+            >
+              {companies.map((c, index) => {
+                return (
+                  <option value={c} key={index}>
+                    {c}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className='form-control'>
+            <h5>colors</h5>
+            <div className='colors'>
+              {colors.map((c, index) => {
+                if (c === 'all') {
+                  return (
+                    <button
+                      key={index}
+                      name='color'
+                      value='all'
+                      className={`${
+                        color === 'all' ? 'all-btn active' : 'all-btn'
+                      }`}
+                      onClick={(e) => {
+                        dispatch(
+                          updateFilters({
+                            name: e.target.name,
+                            value: e.target.value,
+                          })
+                        );
+                      }}
+                    >
+                      all
+                    </button>
+                  );
+                }
+                return (
+                  <button
+                    key={index}
+                    name='color'
+                    style={{ background: c }}
+                    className={`${
+                      color === c ? 'color-btn active' : 'color-btn'
+                    }`}
+                    value={c}
+                    onClick={(e) => {
+                      dispatch(
+                        updateFilters({
+                          name: e.target.name,
+                          value: e.target.value,
+                        })
+                      );
+                    }}
+                  >
+                    {color === c ? <FaCheck /> : null}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <div className='form-control'>
+            <h5>Price</h5>
+            <p className='price'>{formatPrice(price)}</p>
+            <input
+              type='range'
+              name='price'
+              min={min_price}
+              max={max_price}
+              value={price}
+              onChange={(e) =>
+                dispatch(
+                  updateFilters({ name: e.target.name, value: e.target.value })
+                )
+              }
+            />
+          </div>
+          <div className='form-control shipping'>
+            <label htmlFor='shipping'>free shipping</label>
+            <input
+              type='checkbox'
+              name='shipping'
+              id='shipping'
+              onChange={(e) =>
+                dispatch(
+                  updateFilters({ name: e.target.name, value: e.target.checked })
+                )
               }
             />
           </div>
         </form>
-        <button type='button' className='clear-btn'>
+        <button
+          type='button'
+          className='clear-btn'
+          onClick={() => dispatch(clearFilters())}
+        >
           clear filters
         </button>
       </div>

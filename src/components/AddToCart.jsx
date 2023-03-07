@@ -3,9 +3,13 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
 import AmountButtons from './AmountButtons';
+import { addToCart } from '../features/cart/cartSlice';
+import { useDispatch } from 'react-redux';
 const AddToCart = ({ product }) => {
   const { id, stock, colors } = product;
   const [mainColor, setMainColor] = useState(colors[0]);
+  const [amount, setAmount] = useState(1);
+  const dispatch = useDispatch();
   return (
     <Wrapper>
       <div className='colors'>
@@ -14,10 +18,12 @@ const AddToCart = ({ product }) => {
           {colors.map((color, index) => {
             return (
               <button
-                className={`color-btn ${mainColor === color ? 'active' : ''}`}
-                style={{ background: `${color}` }}
-                onClick={() => setMainColor(colors[index])}
                 key={index}
+                style={{ background: color }}
+                className={`${
+                  mainColor === color ? 'color-btn active' : 'color-btn'
+                }`}
+                onClick={() => setMainColor(color)}
               >
                 {mainColor === color ? <FaCheck /> : null}
               </button>
@@ -26,8 +32,14 @@ const AddToCart = ({ product }) => {
         </div>
       </div>
       <div className='btn-container'>
-        <AmountButtons stock={stock} />
-        <Link to={'/cart'} className='btn'>
+        <AmountButtons stock={stock} amount={amount} setAmount={setAmount} />
+        <Link
+          to={'/cart'}
+          className='btn'
+          onClick={() =>
+            dispatch(addToCart({ id, color: mainColor, amount, product }))
+          }
+        >
           Add to cart
         </Link>
       </div>

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
-const AmountButtons = ({ stock }) => {
-  const [amount, setAmount] = useState(1);
+const AmountButtons = ({ stock,setAmount,amount }) => {
+  
   return (
     <Wrapper className='amount-btns'>
       <button
@@ -26,6 +26,7 @@ const AmountButtons = ({ stock }) => {
         <FaPlus />
       </button>
     </Wrapper>
+
   );
 };
 

@@ -1,19 +1,26 @@
-import React from 'react'
-import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-
+import React from 'react';
+import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const CartButtons = () => {
-  return (<Wrapper className='cart-btn-wrapper'>
-    <Link to ={'/cart'} className='cart-btn'>
-      cart
-      <span className="cart-container"><FaShoppingCart/>
-      <span className="cart-value">{12}</span></span>
-    </Link>
-    <button className="auth-btn" type='button'>login {<FaUserPlus/>}</button>
-  </Wrapper>)
-}
+  const { total_amount } = useSelector((state) => state.cart);
+  return (
+    <Wrapper className='cart-btn-wrapper'>
+      <Link to={'/cart'} className='cart-btn'>
+        cart
+        <span className='cart-container'>
+          <FaShoppingCart />
+          <span className='cart-value'>{total_amount}</span>
+        </span>
+      </Link>
+      <button className='auth-btn' type='button'>
+        login {<FaUserPlus />}
+      </button>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   display: grid;
@@ -67,5 +74,5 @@ const Wrapper = styled.div`
       margin-left: 5px;
     }
   }
-`
-export default CartButtons
+`;
+export default CartButtons;

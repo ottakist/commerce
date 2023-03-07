@@ -33,9 +33,7 @@ export const getSingleProduct = createAsyncThunk(
       if (!response.ok) {
         return rejectWithValue(response.status);
       }
-      console.log('getSingle');
       const data = await response.json();
-
       return data;
     } catch (err) {
       throw rejectWithValue(err.message);

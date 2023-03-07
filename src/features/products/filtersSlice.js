@@ -102,9 +102,6 @@ const filterSlice = createSlice({
       state.filtered_products = tempProducts;
     },
     clearFilters: (state) => {
-      // let maxPrice = Math.max(
-      //   ...state.all_products.map((p) => Math.max(p.price))
-      // );
       return {
         ...state,
         filtered_products: state.all_products,
@@ -114,7 +111,6 @@ const filterSlice = createSlice({
           company: 'all',
           category: 'all',
           color: 'all',
-          min_price: 0,
           price: state.filters.max_price,
           shipping: false,
         },

@@ -8,8 +8,6 @@ const ProductsPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadProducts(products));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
 
   return (

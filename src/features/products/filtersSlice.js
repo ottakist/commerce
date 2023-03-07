@@ -68,7 +68,8 @@ const filterSlice = createSlice({
     filterProducts: (state) => {
       const { all_products } = state;
       let tempProducts = [...all_products];
-      const { text, category, company, color, price, shipping,max_price } = state.filters;
+      const { text, category, company, color, price, shipping, max_price } =
+        state.filters;
 
       if (text) {
         tempProducts = tempProducts.filter((product) =>
@@ -101,6 +102,9 @@ const filterSlice = createSlice({
       state.filtered_products = tempProducts;
     },
     clearFilters: (state) => {
+      // let maxPrice = Math.max(
+      //   ...state.all_products.map((p) => Math.max(p.price))
+      // );
       return {
         ...state,
         filtered_products: state.all_products,
@@ -111,8 +115,7 @@ const filterSlice = createSlice({
           category: 'all',
           color: 'all',
           min_price: 0,
-          max_price:0,
-          price: 0,
+          price: state.filters.max_price,
           shipping: false,
         },
       };

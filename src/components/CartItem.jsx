@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { formatPrice } from '../utils/helpers';
 import AmountButtons from './AmountButtons';
 import { FaTrash } from 'react-icons/fa';
-
+import { useState } from 'react';
 const CartItem = ({ id, image, name, color, price, amount }) => {
   const [quantity, setAmount] = useState(amount);
   return (

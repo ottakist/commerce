@@ -7,9 +7,10 @@ import { links } from '../utils/constants';
 import styled from 'styled-components';
 import CartButtons from './CartButtons';
 import { sidebarToggle } from '../features/products/productsSlice';
-
+import { useAuth0 } from '@auth0/auth0-react';
 const Sidebar = () => {
   const { isSidebarOpen } = useSelector((state) => state.products);
+  const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const dispatch = useDispatch();
   return (
     <SidebarContainer>
@@ -41,16 +42,18 @@ const Sidebar = () => {
               </li>
             );
           })}
-          <li>
-            <Link
-              to={'/checkout'}
-              onClick={() => {
-                dispatch(sidebarToggle(isSidebarOpen));
-              }}
-            >
-              checkout
-            </Link>
-          </li>
+          {isAuthenticated && (
+            <li>
+              <Link
+                to={'/checkout'}
+                onClick={() => {
+                  dispatch(sidebarToggle(isSidebarOpen));
+                }}
+              >
+                checkout
+              </Link>
+            </li>
+          )}
         </ul>
         <CartButtons />
       </aside>

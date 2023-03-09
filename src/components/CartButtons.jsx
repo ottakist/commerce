@@ -3,9 +3,11 @@ import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const CartButtons = () => {
   const { total_items } = useSelector((state) => state.cart);
+  const { loginWithRedirect,isAuthenticated,logout } = useAuth0();
   return (
     <Wrapper className='cart-btn-wrapper'>
       <Link to={'/cart'} className='cart-btn'>
@@ -15,9 +17,24 @@ const CartButtons = () => {
           <span className='cart-value'>{total_items}</span>
         </span>
       </Link>
-      <button className='auth-btn' type='button'>
-        login {<FaUserPlus />}
-      </button>
+      {!isAuthenticated && (
+        <button
+          className='auth-btn'
+          type='button'
+          onClick={() => loginWithRedirect()}
+        >
+          login {<FaUserPlus />}
+        </button>
+      )}
+      {isAuthenticated && (
+        <button
+          className='auth-btn'
+          type='button'
+          onClick={() => logout({ returnTo: window.location.origin })}
+        >
+          logout {<FaUserMinus />}
+        </button>
+      )}
     </Wrapper>
   );
 };

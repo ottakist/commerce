@@ -3,9 +3,10 @@ import styled from 'styled-components'
 import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
+import { useAuth0 } from '@auth0/auth0-react';
 const CartTotals = () => {
   const {cart,total_amount,fee} = useSelector(state=>state.cart)
+   const { isAuthenticated,loginWithRedirect } = useAuth0();
   return (
     <Wrapper>
       <div>
@@ -18,10 +19,18 @@ const CartTotals = () => {
           </p>
           <hr />
           <h4>
-            order total :<span>{formatPrice(total_amount+fee)}</span>
+            order total :<span>{formatPrice(total_amount + fee)}</span>
           </h4>
         </article>
-        
+        {isAuthenticated ? (
+          <Link to='/checkout' className='btn'>
+            proceed to checkout
+          </Link>
+        ) : (
+          <button onClick={()=>loginWithRedirect()} className='btn'>
+            login
+          </button>
+        )}
       </div>
     </Wrapper>
   );

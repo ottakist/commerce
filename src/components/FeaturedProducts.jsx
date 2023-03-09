@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import {useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -14,7 +14,7 @@ const FeaturedProducts = () => {
   );
   {
     if (isLoading) {
-     return  <Loading />;
+      return <Loading />;
     }
   }
   {
@@ -34,6 +34,9 @@ const FeaturedProducts = () => {
           return <Product key={product.id} {...product} />;
         })}
       </div>
+      <Link to={'/products'} className='btn'>
+        all products
+      </Link>
     </Wrapper>
   );
 };

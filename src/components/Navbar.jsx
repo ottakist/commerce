@@ -8,8 +8,10 @@ import CartButtons from './CartButtons';
 import { sidebarToggle } from '../features/products/productsSlice';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useAuth0 } from '@auth0/auth0-react';
 const Nav = () => {
   const dispatch = useDispatch();
+  const{isAuthenticated} = useAuth0()
   const { isSidebarOpen } = useSelector((state) => state.products);
   return (
     <NavContainer>
@@ -37,6 +39,11 @@ const Nav = () => {
               </li>
             );
           })}
+          {isAuthenticated && (
+            <li>
+              <Link to='/checkout'>checkout</Link>
+            </li>
+          )}
         </ul>
         <CartButtons />
       </div>

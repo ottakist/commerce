@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
 const CartButtons = () => {
-  const { total_amount } = useSelector((state) => state.cart);
+  const { total_items } = useSelector((state) => state.cart);
   return (
     <Wrapper className='cart-btn-wrapper'>
       <Link to={'/cart'} className='cart-btn'>
         cart
         <span className='cart-container'>
           <FaShoppingCart />
-          <span className='cart-value'>{total_amount}</span>
+          <span className='cart-value'>{total_items}</span>
         </span>
       </Link>
       <button className='auth-btn' type='button'>

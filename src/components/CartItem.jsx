@@ -4,8 +4,18 @@ import { formatPrice } from '../utils/helpers';
 import AmountButtons from './AmountButtons';
 import { FaTrash } from 'react-icons/fa';
 import { useState } from 'react';
-const CartItem = ({ id, image, name, color, price, amount }) => {
-  const [quantity, setAmount] = useState(amount);
+import { useDispatch } from 'react-redux';
+import { removeProduct,toggleAmount } from '../features/cart/cartSlice';
+const CartItem = ({ id, image, name, color, price, amount, max }) => {
+
+  const dispatch = useDispatch();
+    const increase = () => {
+      dispatch(toggleAmount({id, type:'inc'}))
+     
+    };
+    const decrease = () => {
+      dispatch(toggleAmount({id, type:'dec'}));
+    };
   return (
     <Wrapper>
       <div className='title'>
@@ -20,9 +30,12 @@ const CartItem = ({ id, image, name, color, price, amount }) => {
         </div>
       </div>
       <h5 className='price'>{formatPrice(price)}</h5>
-      <AmountButtons amount={quantity} setAmount={setAmount} />
+      <AmountButtons amount={amount} increase={increase} decrease={decrease} />
       <h5 className='subtotal'>{formatPrice(price * amount)}</h5>
-      <button className='remove-btn' onClick={() => 'removeItem(id)'}>
+      <button
+        className='remove-btn'
+        onClick={() => dispatch(removeProduct(id))}
+      >
         <FaTrash />
       </button>
     </Wrapper>

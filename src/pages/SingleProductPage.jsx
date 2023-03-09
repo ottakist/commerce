@@ -36,15 +36,12 @@ const SingleProductPage = () => {
   });
   const {
     id: sku,
-    category,
-    colors,
     company,
     description,
     images,
     name,
     price,
-    reviews,
-    shipping,
+
     stars,
     stock,
   } = single_product;

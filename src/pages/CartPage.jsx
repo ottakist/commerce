@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CartContent, PageHero } from '../components';
-
+import { useDispatch } from 'react-redux';
+import { calculateTotals } from '../features/cart/cartSlice';
 const CartPage = () => {
   const { cart } = useSelector((state) => state.cart);
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(calculateTotals());
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   if (cart.length < 1) {
     return (
       <Wrapper className='page-100'>

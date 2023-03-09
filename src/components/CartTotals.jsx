@@ -2,9 +2,29 @@ import React from 'react'
 import styled from 'styled-components'
 import { formatPrice } from '../utils/helpers'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const CartTotals = () => {
-  return <h4>cart totals</h4>
+  const {cart,total_amount,fee} = useSelector(state=>state.cart)
+  return (
+    <Wrapper>
+      <div>
+        <article>
+          <h5>
+            subtotal :<span>{formatPrice(total_amount)}</span>
+          </h5>
+          <p>
+            shipping fee :<span>{formatPrice(fee)}</span>
+          </p>
+          <hr />
+          <h4>
+            order total :<span>{formatPrice(total_amount+fee)}</span>
+          </h4>
+        </article>
+        
+      </div>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`

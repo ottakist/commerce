@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuth0 } from '@auth0/auth0-react';
 import { clearCart } from '../features/cart/cartSlice';
+import { sidebarToggle } from '../features/products/productsSlice';
 
 const CartButtons = () => {
   const { total_items } = useSelector((state) => state.cart);
@@ -12,7 +13,13 @@ const CartButtons = () => {
   const dispatch = useDispatch();
   return (
     <Wrapper className='cart-btn-wrapper'>
-      <Link to={'/cart'} className='cart-btn'>
+      <Link
+        to={'/cart'}
+        className='cart-btn'
+        onClick={() => {
+          dispatch(sidebarToggle(false));
+        }}
+      >
         cart
         <span className='cart-container'>
           <FaShoppingCart />
@@ -23,7 +30,10 @@ const CartButtons = () => {
         <button
           className='auth-btn'
           type='button'
-          onClick={() => loginWithRedirect()}
+          onClick={() => {
+            dispatch(sidebarToggle(false));
+            loginWithRedirect();
+          }}
         >
           login {<FaUserPlus />}
         </button>
@@ -33,6 +43,7 @@ const CartButtons = () => {
           className='auth-btn'
           type='button'
           onClick={() => {
+            dispatch(sidebarToggle(false));
             logout({ returnTo: window.location.origin });
             dispatch(clearCart());
           }}

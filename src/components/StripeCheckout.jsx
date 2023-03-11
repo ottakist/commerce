@@ -17,7 +17,7 @@ const stripePromise = loadStripe(
   'pk_test_51MkTZkHRxMBDPmELUBSqaYTfWqOoYwRxFSslOyuJNb1rGiICXVmibaVlIKVqrpSPTP7KwwpmY1sODcs0aMvmL4rY008YTYG3Gc'
 );
 const CheckoutForm = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const {user } = useAuth0();
   const { cart, fee, total_amount } = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const [succeeded, setSucceeded] = useState(false);

@@ -9,6 +9,7 @@ import { sidebarToggle } from '../features/products/productsSlice';
 
 const CartButtons = () => {
   const { total_items } = useSelector((state) => state.cart);
+  const { isSidebarOpen } = useSelector((state) => state.products);
   const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
   const dispatch = useDispatch();
   return (
@@ -17,7 +18,7 @@ const CartButtons = () => {
         to={'/cart'}
         className='cart-btn'
         onClick={() => {
-          dispatch(sidebarToggle(false));
+          dispatch(sidebarToggle(isSidebarOpen));
         }}
       >
         cart
@@ -31,7 +32,7 @@ const CartButtons = () => {
           className='auth-btn'
           type='button'
           onClick={() => {
-            dispatch(sidebarToggle(false));
+            dispatch(sidebarToggle(isSidebarOpen));
             loginWithRedirect();
           }}
         >
@@ -43,7 +44,7 @@ const CartButtons = () => {
           className='auth-btn'
           type='button'
           onClick={() => {
-            dispatch(sidebarToggle(false));
+            dispatch(sidebarToggle(isSidebarOpen));
             logout({ returnTo: window.location.origin });
             dispatch(clearCart());
           }}

@@ -4,7 +4,6 @@ import { useSwipeable } from 'react-swipeable';
 
 const ProductImages = ({ images = [{ url: '' }] }) => {
   const [mainImage, setMainImage] = useState(images[0]);
-  // const [id, setId] = useState(images.indexOf(mainImage));
   const id = useRef(images.indexOf(mainImage));
 
   const handlers = useSwipeable({
@@ -17,9 +16,6 @@ const ProductImages = ({ images = [{ url: '' }] }) => {
       id.current =
         id.current > 0 ? id.current - 1 : (id.current = images.length - 1);
       setMainImage(images[id.current]);
-      // setId((prev) => (prev > 0 ? prev - 1 : (prev = images.length - 1)));
-      // console.log('swiped:', id);
-      // setMainImage(images[id]);
     },
     swipeDuration: 500,
     preventScrollOnSwipe: true,

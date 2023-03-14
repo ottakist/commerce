@@ -1,4 +1,3 @@
-// domain/.netlify/functions/create-payment-intent
 const stripe = require('stripe')(
   'sk_test_51MkTZkHRxMBDPmELclpV8qJjcFse9Oe6r060vdCWOBPh9Z4ivcKHQpJFcsRijEtFibohJ0qEhhrJy7qcbpRQtOOe00SuwepNoM'
 );

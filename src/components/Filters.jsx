@@ -50,7 +50,7 @@ const Filters = () => {
           </div>
           <div className='form-control'>
             <h5>category</h5>
-            <div>
+            <div className='categories'>
               {categories.map((c, index) => {
                 return (
                   <button
@@ -168,7 +168,10 @@ const Filters = () => {
               id='shipping'
               onChange={(e) =>
                 dispatch(
-                  updateFilters({ name: e.target.name, value: e.target.checked })
+                  updateFilters({
+                    name: e.target.name,
+                    value: e.target.checked,
+                  })
                 )
               }
             />
@@ -278,10 +281,26 @@ const Wrapper = styled.section`
     padding: 0.25rem 0.5rem;
     border-radius: var(--radius);
   }
+
   @media (min-width: 768px) {
     .content {
       position: sticky;
       top: 1rem;
+    }
+  }
+  @media (max-width: 768px) {
+    .categories {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    .categories button {
+      margin-right: 10px;
+    }
+
+    .clear-btn {
+      margin: 0.25rem auto;
     }
   }
 `;

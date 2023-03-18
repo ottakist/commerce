@@ -1,4 +1,4 @@
-import {useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from './features/products/productsSlice';
 import reactLogo from './assets/react.svg';
@@ -9,20 +9,20 @@ import {
   Route,
   BrowserRouter,
 } from 'react-router-dom';
-import { Navbar, Sidebar, Footer } from './components';
+import { Navbar, Sidebar,Footer } from './components';
 import {
   Home,
-  About,
   AuthWrapper,
-  Cart,
-  Checkout,
   Error,
   PrivateRoute,
-  SingleProduct,
-  ProductsPage,
 } from './pages';
 
 function App() {
+  const About = React.lazy(() => import('./pages/AboutPage'));
+  const ProductsPage = React.lazy(() => import('./pages/ProductsPage'));
+  const SingleProduct = React.lazy(() => import('./pages/SingleProductPage'));
+  const Checkout = React.lazy(() => import('./pages/CheckoutPage'));
+  const Cart = React.lazy(() => import('./pages/CartPage'));
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
@@ -34,22 +34,24 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Sidebar />
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/products' element={<ProductsPage />} />
-          <Route path='/products/:id' element={<SingleProduct />} />
-          <Route
-            path='/checkout'
-            element={
-              <PrivateRoute>
-                <Checkout />
-              </PrivateRoute>
-            }
-          />
-          <Route path='*' element={<Error />} />
-        </Routes>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route exact path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/products' element={<ProductsPage />} />
+            <Route path='/products/:id' element={<SingleProduct />} />
+            <Route
+              path='/checkout'
+              element={
+                <PrivateRoute>
+                  <Checkout />
+                </PrivateRoute>
+              }
+            />
+            <Route path='*' element={<Error />} />
+          </Routes>
+        </Suspense>
         <Footer />
       </BrowserRouter>
     </AuthWrapper>

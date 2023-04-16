@@ -45,6 +45,7 @@ const CartButtons = () => {
           type='button'
           onClick={() => {
             dispatch(sidebarToggle(isSidebarOpen));
+            
             logout({ returnTo: window.location.origin });
             dispatch(clearCart());
           }}

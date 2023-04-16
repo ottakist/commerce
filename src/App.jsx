@@ -1,7 +1,6 @@
 import React, { useEffect, Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from './features/products/productsSlice';
-import reactLogo from './assets/react.svg';
 import { calculateTotals } from './features/cart/cartSlice';
 import {
   BrowserRouter as Router,
